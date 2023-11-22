@@ -5,35 +5,50 @@ import Filter from "@/components/shared/Filter";
 import { HomePageFilters } from "@/constants/filter";
 import HomeFilters from "@/components/home/HomeFilters";
 import NoResult from "@/components/shared/NoResult";
+import QuestionsCard from "@/components/cards/QuestionsCard";
 export default function Home() {
   const questions = [
-    // {
-    //   _id: 1,
-    //   title: "Redux Toolkit Not Updating State as Expected",
-    //   tags: [
-    //     { _id: 1, name: "react js" },
-    //     { _id: 2, name: "redux" },
-    //   ],
-    //   author: "Rana Arju",
-    //   upvotes: 10,
-    //   views: 100,
-    //   answers: 2,
-    //   createdAt: "2023-09-01T12:00:00:000Z",
-    // },
-    // {
-    //   _id: 2,
-    //   title:
-    //     "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-    //   tags: [
-    //     { _id: 1, name: "react js" },
-    //     { _id: 2, name: "Next js" },
-    //   ],
-    //   author: "Rana Arju",
-    //   upvotes: 30,
-    //   views: 500,
-    //   answers: 4,
-    //   createdAt: "2023-08-01T12:00:00:000Z",
-    // },
+    {
+      _id: "afdsdf",
+      title: "Redux Toolkit Not Updating State as Expected",
+      tags: [
+        { _id: "asdfafd", name: "react js" },
+        { _id: "asdafda", name: "redux" },
+      ],
+      author: {
+        _id: "adasdfa",
+        name: "Rana Arju",
+        picture:
+          "https://res.cloudinary.com/db8l1ulfq/image/upload/v1686970331/g19pc3lv7duuzevggsqh.jpg",
+      },
+      upvotes: 108345,
+      views: 100232345,
+      answers: [],
+      createdAt: new Date(
+        "Wed Nov 22 2023 20:52:41 GMT+0600 (Bangladesh Standard Time)"
+      ),
+    },
+    {
+      _id: "sdfad",
+      title:
+        "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
+      tags: [
+        { _id: "asfdasf", name: "react js" },
+        { _id: "asdfasdf", name: "Next js" },
+      ],
+      author: {
+        _id: "adasdfa",
+        name: "Rana Arju",
+        picture:
+          "https://res.cloudinary.com/db8l1ulfq/image/upload/v1686970331/g19pc3lv7duuzevggsqh.jpg",
+      },
+      upvotes: 30,
+      views: 500,
+      answers: [],
+      createdAt: new Date(
+        "Wed Nov 22 2023 18:54:19 GMT+0600 (Bangladesh Standard Time)"
+      ),
+    },
   ];
   return (
     <>
@@ -62,15 +77,27 @@ export default function Home() {
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
         {questions.length > 0 ? (
-          questions.map((question) => "question")
+          questions.map((question) => (
+            <QuestionsCard
+              _id={question._id}
+              title={question.title}
+              tags={question.tags}
+              author={question.author}
+              upvotes={question.upvotes}
+              views={question.views}
+              answers={question.answers}
+              createdAt={question.createdAt}
+              key={question._id}
+            />
+          ))
         ) : (
           <NoResult
             title="There’s no question to show"
             description="Be the first to break the silence! 🚀 Ask a Question and kickstart the
         discussion. our query could be the next big thing others learn from. Get
         involved! 💡"
-        link = "/ask-question"
-        linkTitle = "Ask a Question"
+            link="/ask-question"
+            linkTitle="Ask a Question"
           />
         )}
       </div>
