@@ -19,7 +19,6 @@ const NavContent = () => {
         const isActive =
           (pathname.includes(item.route) && item.route.length > 1) ||
           pathname === item.route;
-        console.log(isActive);
 
         return (
           <SheetClose key={index} asChild>
