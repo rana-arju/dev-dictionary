@@ -20,10 +20,17 @@ import { Badge } from "../ui/badge";
 import Image from "next/image";
 import { QuestionSchema } from "@/lib/validation";
 import { createQuestion } from "@/lib/actions/question.action";
+import { usePathname, useRouter } from "next/navigation";
 const type: any = "create";
-function Question() {
+
+interface Props {
+  mongoUserId: string;
+}
+function Question({ mongoUserId }: Props) {
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof QuestionSchema>>({
     resolver: zodResolver(QuestionSchema),
@@ -35,48 +42,25 @@ function Question() {
   });
   async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     setIsSubmitting(true);
-    console.log("values 😘🥰😘", values);
-    
+
     try {
-      await createQuestion({});
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(mongoUserId),
+        path: pathname
+      });
+      router.push("/");
     } catch (error) {
+      console.log(error);
+      throw error;
     } finally {
       setIsSubmitting(false);
     }
   }
-  // const log = () => {
-  //   if (editorRef.current) {
-  //     console.log(editorRef.current.getContent());
-  //   }
-  // };
-  // const handleKeyDown = (
-  //   e: React.KeyboardEvent<HTMLInputElement>,
-  //   field: any
-  // ) => {
-  //   if (e.key === "Enter" && field.name === "tags") {
-  //     e.preventDefault();
 
-  //     const tagInput = e.target as HTMLInputElement;
-  //     const tagValue = tagInput.value.trim();
-  //     console.log("tagValue", field);
-  //     if (tagValue !== "") {
-  //       if (tagValue.length > 15) {
-  //         return form.setError("tags", {
-  //           type: "required",
-  //           message: "Tag must be less then 15 characters",
-  //         });
-  //       }
-  //       if (!field.value.includes(tagValue as never)) {
-  //         form.setValue("tags", [...field.value, tagValue]);
-  //         tagInput.value = ""; // Set the value to an empty string
-  //         form.clearErrors("tags");
-  //       }
-  //     } else {
-  //       form.trigger();
-  //     }
-  //   }
-  // };
-  const handleKeyDown = (
+  const handleInputKeyDown = (
     e: React.KeyboardEvent<HTMLInputElement>,
     field: any
   ) => {
@@ -85,10 +69,7 @@ function Question() {
 
       const tagInput = e.target as HTMLInputElement;
       const tagValue = tagInput.value.trim();
-      
-      if (!Array.isArray(field.value)) {
-        form.setValue("tags", []); // Initialize as an empty array
-      }
+
       if (tagValue !== "") {
         if (tagValue.length > 15) {
           return form.setError("tags", {
@@ -98,15 +79,22 @@ function Question() {
         }
 
         if (!field.value.includes(tagValue as never)) {
+          // Add the new tag to the current tags
           form.setValue("tags", [...field.value, tagValue]);
-          tagInput.value = ""; // Set the value to an empty string
+
+          // Clear the input value for the next tag
+          tagInput.value = "";
+
+          // Clear errors after updating the field value
           form.clearErrors("tags");
         }
       } else {
+        // Trigger form validation if tag value is empty
         form.trigger();
       }
     }
   };
+
   const handleTagRemove = (tag: string, field: any) => {
     const newTags = field.value.filter((t: string) => t !== tag);
     form.setValue("tags", newTags);
@@ -160,7 +148,7 @@ function Question() {
                     }
                     initialValue=""
                     onBlur={field.onBlur}
-                    onEditorChange={(content) =>  field.onChange(content)}
+                    onEditorChange={(content) => field.onChange(content)}
                     init={{
                       height: 350,
                       menubar: false,
@@ -214,11 +202,12 @@ function Question() {
                 <FormControl className="mt-3.5">
                   <>
                     <Input
+                      disabled={type === "Edit"}
+                      className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
                       placeholder="Add tags..."
-                      {...field}
-                      className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px]"
-                      onKeyDown={(e) => handleKeyDown(e, field)}
+                      onKeyDown={(e) => handleInputKeyDown(e, field)}
                     />
+
                     {Array.isArray(field.value) && field.value.length > 0 && (
                       <div className="flex-start mt-2.5 gap-2.5">
                         {field.value.map((tag: any) => (

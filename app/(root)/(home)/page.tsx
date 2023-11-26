@@ -6,50 +6,10 @@ import { HomePageFilters } from "@/constants/filter";
 import HomeFilters from "@/components/home/HomeFilters";
 import NoResult from "@/components/shared/NoResult";
 import QuestionsCard from "@/components/cards/QuestionsCard";
-export default function Home() {
-  const questions = [
-    {
-      _id: "afdsdf",
-      title: "Redux Toolkit Not Updating State as Expected",
-      tags: [
-        { _id: "asdfafd", name: "react js" },
-        { _id: "asdafda", name: "redux" },
-      ],
-      author: {
-        _id: "adasdfa",
-        name: "Rana Arju",
-        picture:
-          "https://res.cloudinary.com/db8l1ulfq/image/upload/v1686970331/g19pc3lv7duuzevggsqh.jpg",
-      },
-      upvotes: 108345,
-      views: 100232345,
-      answers: [],
-      createdAt: new Date(
-        "Wed Nov 22 2023 20:52:41 GMT+0600 (Bangladesh Standard Time)"
-      ),
-    },
-    {
-      _id: "sdfad",
-      title:
-        "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-      tags: [
-        { _id: "asfdasf", name: "react js" },
-        { _id: "asdfasdf", name: "Next js" },
-      ],
-      author: {
-        _id: "adasdfa",
-        name: "Rana Arju",
-        picture:
-          "https://res.cloudinary.com/db8l1ulfq/image/upload/v1686970331/g19pc3lv7duuzevggsqh.jpg",
-      },
-      upvotes: 30,
-      views: 500,
-      answers: [],
-      createdAt: new Date(
-        "Wed Nov 22 2023 18:54:19 GMT+0600 (Bangladesh Standard Time)"
-      ),
-    },
-  ];
+import { getQuestions } from "@/lib/actions/question.action";
+export default async function Home() {
+  const { questions } = await getQuestions({});
+
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
