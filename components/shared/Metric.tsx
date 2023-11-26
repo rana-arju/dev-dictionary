@@ -43,9 +43,11 @@ function Metric({
   );
 
   if (href) {
-    <Link href={href} className="flex-center gap-1">
-      {MatricContent}
-    </Link>;
+    return (
+      <Link href={href} className="flex-center gap-1">
+        {MatricContent}
+      </Link>
+    );
   }
   return <div className="flex-center flex-wrap gap-1">{MatricContent}</div>;
 }
