@@ -14,7 +14,9 @@ export interface CreateQuestionParams {
   author: Schema.Types.ObjectId | IUser;
   path: string;
 }
-
+interface QuestionId {
+  questionId: string;
+}
 interface ClerkId {
   clerkId: string;
 }
@@ -36,8 +38,12 @@ interface OptionalFilter {
 interface UserId {
   userId: string;
 }
+interface Content {
+  content: string;
+}
 
 export interface DeleteUserParams extends ClerkId {}
+export interface GetQuestionByIdParams extends QuestionId {}
 
 export interface CreateUserParams extends ClerkId {
   name: string;
@@ -58,4 +64,11 @@ export interface GetTopInteractedTagsParams extends UserId {
   limit?: number;
 }
 export interface GetAllTagsParams extends Searchable {}
+/**
+ * Interfaces for answer actions
+ */
+export interface CreateAnswerParams extends Path, Content {
+  author: string;
+  question: string;
+}
 
