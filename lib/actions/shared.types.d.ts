@@ -57,3 +57,5 @@ export interface GetAllUsersParams extends Searchable {}
 export interface GetTopInteractedTagsParams extends UserId {
   limit?: number;
 }
+export interface GetAllTagsParams extends Searchable {}
+
