@@ -17,8 +17,15 @@ import { useRef, useState } from "react";
 import { useTheme } from "@/context/ThemeProvider";
 import { Button } from "../ui/button";
 import Image from "next/image";
-
-function Answer() {
+import { createAnswer } from "@/lib/actions/answer.action";
+import { usePathname } from "next/navigation";
+interface Props {
+  question: string;
+  authorId: string;
+  questionId: string;
+}
+function Answer({ question, authorId, questionId }: Props) {
+  const pathname = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const editorRef = useRef(null);
   const { mode } = useTheme();
@@ -28,14 +35,38 @@ function Answer() {
       answer: "",
     },
   });
-  const handleCreateAnswer = (data) => {};
+  const handleCreateAnswer = async (values: z.infer<typeof AnswerSchema>) => {
+    setIsSubmitting(true);
+    try {
+      await createAnswer({
+        content: values.answer,
+        author: JSON.parse(authorId),
+        question: JSON.parse(questionId),
+        path: pathname,
+      });
+      form.reset();
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent("");
+      }
+      setIsSubmitting(false);
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   return (
     <div>
       <div className="mt-1 flex flex-col justify-between gap-5 sm:flex-row">
         <h4 className="paragraph-semibold text-dark400_light800">
           Write your answer here!
         </h4>
-        <Button className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500" onClick={() => {}}>
+        <Button
+          className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
+          onClick={() => {}}
+        >
           <Image
             src="/assets/icons/stars.svg"
             alt="star"
@@ -112,7 +143,7 @@ function Answer() {
           />
           <div className="flex justify-end">
             <Button
-              type="button"
+              type="submit"
               className="primary-gradient w-full !text-light-900"
               disabled={isSubmitting}
             >

@@ -41,6 +41,9 @@ interface UserId {
 interface Content {
   content: string;
 }
+interface AnswerId {
+  answerId: string;
+}
 
 export interface DeleteUserParams extends ClerkId {}
 export interface GetQuestionByIdParams extends QuestionId {}
@@ -51,6 +54,10 @@ export interface CreateUserParams extends ClerkId {
   email: string;
   picture: string;
 }
+interface Voting {
+  hasupVoted: boolean;
+  hasdownVoted: boolean;
+}
 interface Searchable
   extends OptionalPage,
     OptionalPageSize,
@@ -60,6 +67,9 @@ export interface UpdateUserParams extends ClerkId, Path {
   updateData: Partial<IUser>;
 }
 export interface GetAllUsersParams extends Searchable {}
+export interface QuestionVoteParams extends QuestionId, UserId, Path, Voting {}
+export interface AnswerVoteParams extends AnswerId, UserId, Path, Voting {}
+
 export interface GetTopInteractedTagsParams extends UserId {
   limit?: number;
 }
@@ -70,5 +80,11 @@ export interface GetAllTagsParams extends Searchable {}
 export interface CreateAnswerParams extends Path, Content {
   author: string;
   question: string;
+}
+export interface GetAnswersParams
+  extends OptionalPage,
+    OptionalPageSize,
+    QuestionId {
+  sortBy?: string;
 }
 
