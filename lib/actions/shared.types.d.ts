@@ -47,6 +47,7 @@ interface AnswerId {
 
 export interface DeleteUserParams extends ClerkId {}
 export interface GetQuestionByIdParams extends QuestionId {}
+export interface ToggleSaveQuestionParams extends UserId, QuestionId, Path {}
 
 export interface CreateUserParams extends ClerkId {
   name: string;
@@ -69,7 +70,12 @@ export interface UpdateUserParams extends ClerkId, Path {
 export interface GetAllUsersParams extends Searchable {}
 export interface QuestionVoteParams extends QuestionId, UserId, Path, Voting {}
 export interface AnswerVoteParams extends AnswerId, UserId, Path, Voting {}
-
+export interface GetSavedQuestionParams
+  extends ClerkId,
+    OptionalPage,
+    OptionalPageSize,
+    OptionalSearch,
+    OptionalFilter {}
 export interface GetTopInteractedTagsParams extends UserId {
   limit?: number;
 }

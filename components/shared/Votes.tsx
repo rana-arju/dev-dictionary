@@ -1,9 +1,13 @@
 "use client";
 import { downvoteAnswer, upvoteAnswer } from "@/lib/actions/answer.action";
-import { downvoteQuestion, upvoteQuestion } from "@/lib/actions/question.action";
+import {
+  downvoteQuestion,
+  upvoteQuestion,
+} from "@/lib/actions/question.action";
+import { toggleSaveQuestion } from "@/lib/actions/user.action";
 import { formatBigNumber } from "@/lib/utils";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 interface Props {
   type: string;
@@ -26,8 +30,9 @@ function Votes({
   hasdownVoted,
   hasSaved,
 }: Props) {
-  const pathname = usePathname()
-  const router = useRouter()
+  const pathname = usePathname();
+  console.log("hasdownVoted", hasdownVoted);
+
   const handleVote = async (action: string) => {
     if (!userId) {
       return;
@@ -41,7 +46,7 @@ function Votes({
           hasupVoted,
           path: pathname,
         });
-      }else if (type === "Answer") {
+      } else if (type === "Answer") {
         await upvoteAnswer({
           answerId: JSON.parse(itemId),
           userId: JSON.parse(userId),
@@ -50,7 +55,7 @@ function Votes({
           path: pathname,
         });
       }
-      return
+      return;
     }
     if (action === "downvote") {
       if (type === "Question") {
@@ -72,7 +77,14 @@ function Votes({
       }
     }
   };
-  const handleSave = () => {};
+  const handleSave = async () => {
+ await toggleSaveQuestion({
+      userId: JSON.parse(userId),
+      questionId: JSON.parse(itemId),
+      path: pathname,
+    });
+    
+  };
   return (
     <div className="flex gap-5">
       <div className="flex-center gap-2.5">
@@ -118,7 +130,7 @@ function Votes({
       {type === "Question" && (
         <Image
           src={
-            hasdownVoted
+            hasSaved
               ? "/assets/icons/star-filled.svg"
               : "/assets/icons/star-red.svg"
           }
@@ -131,6 +143,5 @@ function Votes({
       )}
     </div>
   );
-
-      }
+}
 export default Votes;
