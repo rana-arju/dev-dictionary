@@ -8,7 +8,6 @@ import React from "react";
 
 async function Community() {
   const { users } = await getAllUser({});
-  console.log("users 🥰😘", users);
 
   return (
     <>

@@ -31,7 +31,6 @@ function Votes({
   hasSaved,
 }: Props) {
   const pathname = usePathname();
-  console.log("hasdownVoted", hasdownVoted);
 
   const handleVote = async (action: string) => {
     if (!userId) {

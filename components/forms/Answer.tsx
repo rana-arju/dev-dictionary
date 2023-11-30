@@ -51,7 +51,6 @@ function Answer({ question, authorId, questionId }: Props) {
       }
       setIsSubmitting(false);
     } catch (error) {
-      console.log(error);
       setIsSubmitting(false);
     } finally {
       setIsSubmitting(false);

@@ -61,7 +61,7 @@ function QuestionsCard({
         <Metric
           imgUrl="/assets/icons/like.svg"
           alt="Upvote"
-          value={formatBigNumber(upvotes)}
+          value={formatBigNumber(upvotes.length)}
           title=" votes"
           textStyles="small-medium text-dark400_light800"
         />
