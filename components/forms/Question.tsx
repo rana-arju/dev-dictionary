@@ -55,7 +55,8 @@ const { mode } = useTheme();
       });
       router.push("/");
     } catch (error) {
-      throw error;
+      console.log(error);
+      
     } finally {
       setIsSubmitting(false);
     }
