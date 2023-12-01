@@ -81,6 +81,7 @@ export interface GetSavedQuestionParams
 export interface GetTopInteractedTagsParams extends UserId {
   limit?: number;
 }
+
 export interface GetAllTagsParams extends Searchable {}
 /**
  * Interfaces for answer actions
@@ -95,4 +96,9 @@ export interface GetAnswersParams
     QuestionId {
   sortBy?: string;
 }
-
+export interface GetQuestionByTagIdParams
+  extends OptionalPage,
+    OptionalPageSize,
+    OptionalSearch {
+  tagId: string;
+}

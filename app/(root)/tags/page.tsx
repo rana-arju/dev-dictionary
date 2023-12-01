@@ -29,7 +29,7 @@ async function Tags() {
         {tags.length > 0 ? (
           tags.map((tag) => (
             <Link
-              href={`/tags/${tag}`}
+              href={`/tags/${tag._id}`}
               key={tag._id}
               className="shadow-light100_darknone"
             >
