@@ -70,6 +70,8 @@ export interface UpdateUserParams extends ClerkId, Path {
 export interface GetAllUsersParams extends Searchable {}
 export interface QuestionVoteParams extends QuestionId, UserId, Path, Voting {}
 export interface AnswerVoteParams extends AnswerId, UserId, Path, Voting {}
+export interface ViewQuestionParams extends UserId, QuestionId {}
+
 export interface GetSavedQuestionParams
   extends ClerkId,
     OptionalPage,
