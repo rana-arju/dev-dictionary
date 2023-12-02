@@ -2,9 +2,9 @@ import { getUserQuestions } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import React from "react";
 import QuestionsCard from "../cards/QuestionsCard";
-interface Props extends SearchParamsProps {
-  userId: string;
-  clerkId?: string | undefined;
+import { UserId } from "@/lib/actions/shared.types";
+interface Props extends SearchParamsProps, UserId {
+  clerkId?: string;
 }
 const QuestionTab = async ({ searchParams, userId, clerkId }: Props) => {
   const { totalQuestions, questions } = await getUserQuestions({

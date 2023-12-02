@@ -215,15 +215,16 @@ export async function getUserAnswers(params: GetUserStatsParams) {
     const { page = 1, pageSize = 10, userId } = params;
     const totalAnswers = await Answer.countDocuments({ author: userId });
     const userAnswers = await Answer.find({ author: userId })
-      .sort({  upvotes: -1 })
+      .sort({ upvotes: -1 })
       .populate("question", "_id title")
       .populate("author", "_id clerkId name picture");
-    return {  totalAnswers, answers: userAnswers };
+    return { totalAnswers, answers: userAnswers };
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+
 
 
 // export async function getAllUser(params: GetAllUsersParams) {
