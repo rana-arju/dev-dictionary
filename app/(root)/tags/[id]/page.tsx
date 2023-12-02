@@ -3,7 +3,6 @@ import NoResult from '@/components/shared/NoResult';
 import LocalSearchbar from '@/components/shared/search/LocalSearchbar';
 import { getQuestionTag } from '@/lib/actions/tag.action'
 import { URLProps } from '@/types';
-import React from 'react'
 
 async function SingleTag({params, searchParams}:URLProps) {
   const {tagTitle, questions} = await getQuestionTag({
@@ -31,6 +30,7 @@ async function SingleTag({params, searchParams}:URLProps) {
             <QuestionsCard
               _id={question._id}
               title={question.title}
+              clerkId={question.author.clerkId}
               tags={question.tags}
               author={question.author}
               upvotes={question.upvotes}

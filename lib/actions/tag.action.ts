@@ -68,7 +68,6 @@ export async function getQuestionTag(params: GetQuestionByTagIdParams) {
         },
       ],
     });
-    console.log("🥰", tag);
 
     if (!tag) {
       throw new Error("Tag not found!");

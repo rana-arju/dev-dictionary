@@ -6,10 +6,10 @@ import QuestionsCard from "@/components/cards/QuestionsCard";
 import { auth } from "@clerk/nextjs";
 import { getSavedQuestion } from "@/lib/actions/user.action";
 export default async function Collection() {
-  const { userId } = auth();
-  if (!userId) return null;
+  const { userId: clerkId } = auth();
+  if (!clerkId) return null;
 
-  const { questions } = await getSavedQuestion({ clerkId: userId });
+  const { questions } = await getSavedQuestion({ clerkId });
 
   return (
     <>
@@ -30,10 +30,11 @@ export default async function Collection() {
       </div>
       <div className="mt-10 flex w-full flex-col gap-6">
         {questions.length > 0 ? (
-          questions.map((question:any) => (
+          questions.map((question: any) => (
             <QuestionsCard
               _id={question._id}
               title={question.title}
+              clerkId={clerkId}
               tags={question.tags}
               author={question.author}
               upvotes={question.upvotes}

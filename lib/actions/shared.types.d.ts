@@ -81,6 +81,7 @@ export interface GetSavedQuestionParams
 export interface GetTopInteractedTagsParams extends UserId {
   limit?: number;
 }
+export interface GetUserByIdParams extends UserId {}
 
 export interface GetAllTagsParams extends Searchable {}
 /**
@@ -101,4 +102,25 @@ export interface GetQuestionByTagIdParams
     OptionalPageSize,
     OptionalSearch {
   tagId: string;
+}
+export interface GetUserStatsParams {
+  userId: string;
+  page?: number;
+  pageSize?: number;
+}
+
+export interface DeleteQuestionParams {
+  questionId: string;
+  path: string;
+}
+
+export interface DeleteAnswerParams {
+  answerId: string;
+  path: string;
+}
+export interface EditQuestionParams {
+  questionId: string;
+  title: string;
+  content: string;
+  path: string;
 }
