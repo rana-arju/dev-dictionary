@@ -3,10 +3,11 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { UserFilters } from "@/constants/filter";
 import { getAllTags } from "@/lib/actions/tag.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
-async function Tags() {
-  const { tags } = await getAllTags({});
+async function Tags({ searchParams }: SearchParamsProps) {
+  const { tags } = await getAllTags({ searchQuery: searchParams.q });
 
   return (
     <>
@@ -14,7 +15,7 @@ async function Tags() {
 
       <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
         <LocalSearchbar
-          route="/community"
+          route={`/tags`}
           iconPosition="left"
           imgSrc="/assets/icons/search.svg"
           placeholder="Search for amazine minds"
@@ -40,7 +41,10 @@ async function Tags() {
                   </p>
                 </div>
                 <p className="small-medium text-dark400_light500 mt-3.5">
-                  <span className="body-semibold primary-text-gradient mr-2.5">{tag.questions.length}+</span> Questions
+                  <span className="body-semibold primary-text-gradient mr-2.5">
+                    {tag.questions.length}+
+                  </span>{" "}
+                  Questions
                 </p>
               </article>
             </Link>

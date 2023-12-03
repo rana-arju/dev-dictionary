@@ -12,7 +12,6 @@ import Answer from "@/database/answer.model";
 import Question from "@/database/question.model";
 import User from "@/database/user.model";
 import Intraction from "@/database/intraction.model";
-import { Tag } from "lucide-react";
 
 export async function createAnswer(params: CreateAnswerParams) {
   try {

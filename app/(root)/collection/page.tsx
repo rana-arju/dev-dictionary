@@ -5,11 +5,15 @@ import NoResult from "@/components/shared/NoResult";
 import QuestionsCard from "@/components/cards/QuestionsCard";
 import { auth } from "@clerk/nextjs";
 import { getSavedQuestion } from "@/lib/actions/user.action";
-export default async function Collection() {
+import { SearchParamsProps } from "@/types";
+export default async function Collection({ searchParams }: SearchParamsProps) {
   const { userId: clerkId } = auth();
   if (!clerkId) return null;
 
-  const { questions } = await getSavedQuestion({ clerkId });
+  const { questions } = await getSavedQuestion({
+    clerkId,
+    searchQuery: searchParams.q,
+  });
 
   return (
     <>

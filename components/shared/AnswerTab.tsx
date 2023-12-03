@@ -1,9 +1,10 @@
 import { getUserAnswers } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import AnswerCard from "../cards/AnswerCard";
+import { UserId } from "@/lib/actions/shared.types";
 
-interface Props extends SearchParamsProps {
-  userId: string;
+interface Props extends SearchParamsProps, UserId {
+  // userId: string;
   clerkId?: string | null;
 }
 const AnswerTab = async ({ searchParams, userId, clerkId }: Props) => {

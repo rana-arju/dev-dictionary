@@ -13,13 +13,13 @@ interface Props {
     _id: string;
     name: string;
     picture: string;
-    clerkId: string
+    clerkId: string;
   };
   upvotes: string[];
   views: number;
   answers: Array<object>;
   createdAt: Date;
-  clerkId: string;
+  clerkId?: string | null;
 }
 function QuestionsCard({
   _id,
