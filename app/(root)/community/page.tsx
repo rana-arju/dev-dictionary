@@ -3,11 +3,12 @@ import Filter from "@/components/shared/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { UserFilters } from "@/constants/filter";
 import { getAllUser } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import React from "react";
 
-async function Community() {
-  const { users } = await getAllUser({});
+async function Community({ searchParams }: SearchParamsProps) {
+  const { users } = await getAllUser({ searchQuery: searchParams.q });
 
   return (
     <>
@@ -28,9 +29,7 @@ async function Community() {
       </div>
       <section className="mt-12 flex flex-wrap gap-4  ">
         {users.length > 0 ? (
-          users.map((user) => (
-            <UserCard key={user._id} user={user}></UserCard>
-          ))
+          users.map((user) => <UserCard key={user._id} user={user}></UserCard>)
         ) : (
           <div className="paragraph-regular text-dark200_light800 mx-auto  max-w-4xl text-center">
             <p>No users yet</p>
