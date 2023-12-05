@@ -13,7 +13,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
-async function SingleQuestion({ params }: any) {
+async function SingleQuestion({ params,searchParams }: any) {
   const { question } = await getQuestionById({ questionId: params.id });
 
   const { userId: clerkId } = auth();
@@ -97,6 +97,8 @@ async function SingleQuestion({ params }: any) {
         userId={mongoUser._id}
         questionId={question._id}
         totalAnswers={question.answers.length}
+        page={searchParams?.page}
+        filter = {searchParams?.filter}
       />
       <Answer
         question={mongoUser.content}

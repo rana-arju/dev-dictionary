@@ -31,13 +31,39 @@ export async function getTopintractedTag(params: GetTopInteractedTagsParams) {
 export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();
-    const { searchQuery } = params;
+    const { searchQuery, filter, page = 1, pageSize = 20 } = params;
+    const skipAmmount = (page - 1) * pageSize;
     const query: FilterQuery<typeof Tag> = {};
     if (searchQuery) {
       query.$or = [{ name: { $regex: new RegExp(searchQuery, "i") } }];
     }
-    const tags = await Tag.find(query);
-    return { tags };
+
+    let sortOptions = {};
+
+    switch (filter) {
+      case "popular":
+        sortOptions = { questions: -1 };
+        break;
+      case "recent":
+        sortOptions = { createdOn: -1 };
+        break;
+      case "name":
+        sortOptions = { name: 1 };
+        break;
+      case "old":
+        sortOptions = { createdOn: 1 };
+        break;
+      default:
+        break;
+    }
+
+    const tags = await Tag.find(query)
+      .skip(skipAmmount)
+      .limit(pageSize)
+      .sort(sortOptions);
+    const totalTags = await Tag.countDocuments(query);
+    const isNext = totalTags > skipAmmount + tags.length;
+    return { tags, isNext };
   } catch (error) {
     console.log(error);
     throw error;
@@ -47,7 +73,8 @@ export async function getAllTags(params: GetAllTagsParams) {
 export async function getQuestionTag(params: GetQuestionByTagIdParams) {
   try {
     connectToDatabase();
-    const { tagId, searchQuery } = params;
+    const { tagId, searchQuery, page = 1, pageSize = 20 } = params;
+    const skipAmmount = (page - 1) * pageSize;
 
     const tagFilter: FilterQuery<ITag> = { _id: tagId };
 
@@ -59,6 +86,8 @@ export async function getQuestionTag(params: GetQuestionByTagIdParams) {
         : {},
       options: {
         sort: { createdAt: -1 },
+        skip: skipAmmount,
+        limit: pageSize + 1,
       },
       populate: [
         {
@@ -77,8 +106,10 @@ export async function getQuestionTag(params: GetQuestionByTagIdParams) {
     if (!tag) {
       throw new Error("Tag not found!");
     }
+    const isNext = tag.questions.length > pageSize;
+
     const questions = tag.questions;
-    return { tagTitle: tag.name, questions };
+    return { tagTitle: tag.name, questions, isNext };
   } catch (error) {
     console.log(error);
     throw error;
