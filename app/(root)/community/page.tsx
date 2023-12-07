@@ -9,7 +9,13 @@ import Link from "next/link";
 import React from "react";
 
 async function Community({ searchParams }: SearchParamsProps) {
-  const { users , isNext} = await getAllUser({ searchQuery: searchParams.q, filter: searchParams.filter, page: searchParams.page ? +searchParams.page : 1 });
+  const { users, isNext } = await getAllUser({
+    searchQuery: searchParams.q,
+    filter: searchParams.filter,
+    page: searchParams.page ? +searchParams.page : 1,
+  });
+
+  
 
   return (
     <>

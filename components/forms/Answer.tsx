@@ -27,6 +27,7 @@ interface Props {
 function Answer({ question, authorId, questionId }: Props) {
   const pathname = usePathname();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingAi, setIsSubmittingAi] = useState(false);
   const editorRef = useRef(null);
   const { mode } = useTheme();
   const form = useForm<z.infer<typeof AnswerSchema>>({
@@ -56,9 +57,34 @@ function Answer({ question, authorId, questionId }: Props) {
       setIsSubmitting(false);
     }
   };
-  const generateAiAnswer = () => {
-    
-  }
+  const generateAiAnswer = async () => {
+    if (!authorId) return;
+    setIsSubmittingAi(true);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_SERVER_URL}/api/chatgpt`,
+        {
+          method: "POST",
+          body: JSON.stringify({ question }),
+        }
+      );
+      const aiAnswer = await response.json();
+
+      const formattedAiAnswer = aiAnswer.error
+        ? "Sorry, I could not provide an answer to your question, please try again."
+        : aiAnswer.reply.replace(/\n/g, "<br />");
+
+      if (editorRef.current) {
+        const editor = editorRef.current as any;
+        editor.setContent(formattedAiAnswer);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmittingAi(false);
+    }
+  };
   return (
     <div>
       <div className="mt-1 flex flex-col justify-between gap-5 sm:flex-row">
@@ -76,7 +102,7 @@ function Answer({ question, authorId, questionId }: Props) {
             width={12}
             className="object-contain"
           />
-          Generate AI answer
+          {isSubmittingAi ? "Generating..." : "Generate AI Answer"}
         </Button>
       </div>
       <Form {...form}>

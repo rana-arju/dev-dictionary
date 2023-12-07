@@ -10,6 +10,7 @@ import { formatBigNumber } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { toast } from "../ui/use-toast";
 
 interface Props {
   type: string;
@@ -37,7 +38,10 @@ function Votes({
 
   const handleVote = async (action: string) => {
     if (!userId) {
-      return;
+      return toast({
+        title: "Please Login!",
+        description: "You must be logged in for vote!",
+      });
     }
     if (action === "upvote") {
       if (type === "Question") {
@@ -57,7 +61,10 @@ function Votes({
           path: pathname,
         });
       }
-      return;
+      toast({
+        title: `Upvote ${!hasupVoted ? "added" : "removed"} 🎉`,
+        variant: !hasupVoted ? "default" : "destructive",
+      });
     }
     if (action === "downvote") {
       if (type === "Question") {
@@ -77,6 +84,10 @@ function Votes({
           path: pathname,
         });
       }
+      toast({
+        title: `Downvote ${!hasdownVoted ? "added" : "removed"} 🎉`,
+        variant: !hasdownVoted ? "default" : "destructive",
+      });
     }
   };
   const handleSave = async () => {

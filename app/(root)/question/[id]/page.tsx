@@ -23,6 +23,7 @@ async function SingleQuestion({ params,searchParams }: any) {
   } else {
     return redirect("/sign-in");
   }
+  
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -101,7 +102,7 @@ async function SingleQuestion({ params,searchParams }: any) {
         filter = {searchParams?.filter}
       />
       <Answer
-        question={mongoUser.content}
+        question={question.content}
         questionId={JSON.stringify(question._id)}
         authorId={JSON.stringify(mongoUser._id)}
       />
