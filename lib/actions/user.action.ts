@@ -17,6 +17,8 @@ import Question from "@/database/question.model";
 import { revalidatePath } from "next/cache";
 import Tag from "@/database/tag.model";
 import Answer from "@/database/answer.model";
+import { BadgeCriteriaType } from "@/types";
+import { assignBadges } from "../utils";
 
 export async function getUserById(params: any) {
   try {
@@ -241,7 +243,63 @@ export async function getUserInfo(params: GetUserByIdParams) {
     }
     const totalQuestions = await Question.countDocuments({ author: user._id });
     const totalAnswers = await Answer.countDocuments({ author: user._id });
-    return { user, totalAnswers, totalQuestions };
+
+    const [questionUpVotes] = await Question.aggregate([
+      { $match: { author: user._id } },
+      { $project: { _id: 0, upvotes: { $size: "$upvotes" } } },
+      {
+        $group: {
+          _id: null,
+          totalUpvotes: { $sum: "$upvotes" },
+        },
+      },
+    ]);
+
+    const [answerUpVotes] = await Answer.aggregate([
+      { $match: { author: user._id } },
+      { $project: { _id: 0, upvotes: { $size: "$upvotes" } } },
+      {
+        $group: {
+          _id: null,
+          totalUpvotes: { $sum: "$upvotes" },
+        },
+      },
+    ]);
+
+    const [questionViews] = await Question.aggregate([
+      { $match: { author: user._id } },
+      {
+        $group: {
+          _id: null,
+          totalViews: { $sum: "$views" },
+        },
+      },
+    ]);
+    const criteria = [
+      { type: "QUESTION_COUNT" as BadgeCriteriaType, count: totalQuestions },
+      { type: "ANSWER_COUNT" as BadgeCriteriaType, count: totalAnswers },
+      {
+        type: "QUESTION_UPVOTES" as BadgeCriteriaType,
+        count: questionUpVotes?.totalUpvotes || 0,
+      },
+      {
+        type: "ANSWER_UPVOTES" as BadgeCriteriaType,
+        count: answerUpVotes?.totalUpvotes || 0,
+      },
+      {
+        type: "TOTAL_VIEWS" as BadgeCriteriaType,
+        count: questionViews?.totalViews || 0,
+      },
+    ];
+    const badgetCount = assignBadges({ criteria });
+
+    return {
+      user,
+      totalAnswers,
+      totalQuestions,
+      badgetCount,
+      reputation: user.reputation,
+    };
   } catch (error) {
     console.log(error);
     throw error;
@@ -273,7 +331,7 @@ export async function getUserAnswers(params: GetUserStatsParams) {
   try {
     connectToDatabase();
     const { page = 1, pageSize = 20, userId } = params;
-        const skipAmmount = (page - 1) * pageSize;
+    const skipAmmount = (page - 1) * pageSize;
 
     const totalAnswers = await Answer.countDocuments({ author: userId });
     const userAnswers = await Answer.find({ author: userId })
@@ -282,7 +340,7 @@ export async function getUserAnswers(params: GetUserStatsParams) {
       .limit(pageSize)
       .populate("question", "_id title")
       .populate("author", "_id clerkId name picture");
-      const isNext = totalAnswers > skipAmmount + userAnswers.length;
+    const isNext = totalAnswers > skipAmmount + userAnswers.length;
     return { totalAnswers, answers: userAnswers, isNext };
   } catch (error) {
     console.log(error);

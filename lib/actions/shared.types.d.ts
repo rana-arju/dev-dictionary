@@ -55,15 +55,18 @@ export interface CreateUserParams extends ClerkId {
   email: string;
   picture: string;
 }
+
 interface Voting {
   hasupVoted: boolean;
   hasdownVoted: boolean;
 }
+
 interface Searchable
   extends OptionalPage,
     OptionalPageSize,
     OptionalSearch,
     OptionalFilter {}
+    
 export interface UpdateUserParams extends ClerkId, Path {
   updateData: Partial<IUser>;
 }

@@ -56,6 +56,9 @@ function Answer({ question, authorId, questionId }: Props) {
       setIsSubmitting(false);
     }
   };
+  const generateAiAnswer = () => {
+    
+  }
   return (
     <div>
       <div className="mt-1 flex flex-col justify-between gap-5 sm:flex-row">
@@ -64,7 +67,7 @@ function Answer({ question, authorId, questionId }: Props) {
         </h4>
         <Button
           className="btn light-border-2 gap-1.5 rounded-md px-4 py-2.5 text-primary-500 shadow-none dark:text-primary-500"
-          onClick={() => {}}
+          onClick={generateAiAnswer}
         >
           <Image
             src="/assets/icons/stars.svg"
@@ -73,7 +76,7 @@ function Answer({ question, authorId, questionId }: Props) {
             width={12}
             className="object-contain"
           />
-          Generate an AI answer
+          Generate AI answer
         </Button>
       </div>
       <Form {...form}>
