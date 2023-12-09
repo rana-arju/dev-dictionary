@@ -19,7 +19,6 @@ interface Props {
 }
 async function UserCard({ user }: Props) {
   const tags = await getTopInteractedTags({ userId: user._id });
-  console.log(tags);
 
   return (
     <Link

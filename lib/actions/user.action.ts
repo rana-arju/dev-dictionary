@@ -36,6 +36,8 @@ export async function createUser(userData: CreateUserParams) {
   try {
     connectToDatabase();
     const newUser = await User.create(userData);
+    console.log("newUser", newUser);
+    
     return newUser;
   } catch (error) {
     console.log(error);
@@ -48,9 +50,11 @@ export async function updateUser(params: UpdateUserParams) {
     connectToDatabase();
     const { clerkId, updateData, path } = params;
 
-    await User.findOneAndUpdate({ clerkId }, updateData, {
+   const data =  await User.findOneAndUpdate({ clerkId }, updateData, {
       new: true,
     });
+    console.log("data", data);
+    
     revalidatePath(path);
   } catch (error) {
     console.log(error);
@@ -138,7 +142,6 @@ export async function toggleSaveQuestion(params: ToggleSaveQuestionParams) {
     const { userId, questionId, path } = params;
 
     const user = await User.findById(userId);
-    console.log(user);
 
     if (!user) {
       throw new Error("User not found");
