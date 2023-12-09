@@ -13,7 +13,7 @@ export async function generateMetadata({
   const tag = await getTagById({ tagId: id });
 
   return {
-    title: `Posts by tag '${tag.name}' — Dev connected`,
+    title: `Posts by tag '${tag.name}' — Dev Dictionary`,
     description: tag.description || `Questions tagged with ${tag.name}`,
   };
 }

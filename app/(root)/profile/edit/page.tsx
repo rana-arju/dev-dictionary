@@ -7,7 +7,7 @@ import React from "react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Edit Profile — DevConnected",
+  title: "Edit Profile — Dev Dictionary",
 };
 async function EditProfile({ params }: ParamsProps) {
   const { userId } = auth();

@@ -18,7 +18,7 @@ export async function generateMetadata({
   const user = await getUserById({ userId: params.id });
 
   return {
-    title: `${user.name}'s Profile — DevConnected`,
+    title: `${user.name}'s Profile — Dev Dictionary`,
   };
 }
 async function Profile({ params, searchParams }: URLProps) {

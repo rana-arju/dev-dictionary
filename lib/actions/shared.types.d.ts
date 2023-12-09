@@ -134,3 +134,14 @@ export interface SearchParams {
   query?: string | null;
   type?: string | null;
 }
+
+export interface GetJobsParams extends Searchable {
+  location?: string;
+  remote?: boolean | string;
+  wage?: boolean | string;
+  skills?: boolean | string;
+}
+export interface JobFilterParams {
+  query: string;
+  page: string;
+}

@@ -9,7 +9,7 @@ import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Saved Questions | Dev Connected",
+  title: "Saved Questions | Dev dictionary",
   description:
     "A community-driven platform for asking and answering questions about software development. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, game development, algorithms, data structures, and more.",
 };

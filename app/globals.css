@@ -42,7 +42,8 @@ body {
   }
 
   .primary-gradient {
-    background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+    background: linear-gradient(129deg, #2d6ff7 0%, #85acf8 100%);
+    /* background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%); */
   }
 
   .dark-gradient {
@@ -76,7 +77,8 @@ body {
 }
 
 .primary-text-gradient {
-  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%);
+  background: linear-gradient(129deg, #2d6ff7 0%, rgb(131, 165, 235) 100%);
+  /* background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%); */
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -103,7 +105,8 @@ body {
 
 /* Markdown Start */
 .markdown a {
-  color: #1da1f2;
+  /* color: #1da1f2; */
+  color: #2d6ff7;
 }
 
 .markdown a,
@@ -125,7 +128,8 @@ code {
   hyphens: auto;
 
   padding: 2px;
-  color: #ff7000 !important;
+  color: #2d6ff7 !important;
+  /* color: #ff7000 !important; */
 }
 
 .markdown pre {
@@ -144,7 +148,8 @@ code {
 
 /* Clerk */
 .cl-internal-b3fm6y {
-  background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%) !important;
+  /* background: linear-gradient(129deg, #ff7000 0%, #e2995f 100%) !important; */
+  background: linear-gradient(129deg, #2d6ff7 0%, #60a5fa 100%) !important;
 }
 
 .hash-span {

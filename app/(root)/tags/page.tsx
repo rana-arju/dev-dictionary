@@ -8,7 +8,7 @@ import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "All Tags | Dev Connected",
+  title: "All Tags | Dev Dictionary",
   description:
     "A community-driven platform for asking and answering questions about software development. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, game development, algorithms, data structures, and more.",
 };

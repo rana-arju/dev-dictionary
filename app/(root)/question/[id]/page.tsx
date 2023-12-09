@@ -21,7 +21,7 @@ export async function generateMetadata({
   const { question } = await getQuestionById({ questionId: params.id });
 
   return {
-    title: `"${question.title}" — DevConnected`,
+    title: `"${question.title}" — Dev Dictionary`,
   };
 }
 async function SingleQuestion({ params, searchParams }: any) {

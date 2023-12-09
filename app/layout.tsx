@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   description:
     "Dev Flow is a question-and-answer website for programmers. It's the flagship site of the Stack Exchange Network.",
   icons: {
-    icon: "/assets/images/site-logo.svg",
+    icon: "/assets/images/site-logo.png",
   },
 };
 

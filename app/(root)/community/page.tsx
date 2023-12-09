@@ -9,7 +9,7 @@ import Link from "next/link";
 import React from "react";
 import { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "All Users | Dev Connected",
+  title: "All Users | Dev Dictionary",
   description:
     "A community-driven platform for asking and answering questions about software development. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, game development, algorithms, data structures, and more.",
 };
