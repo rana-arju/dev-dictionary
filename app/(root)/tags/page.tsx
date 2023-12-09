@@ -6,7 +6,12 @@ import { TagFilters } from "@/constants/filter";
 import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "All Tags | Dev Connected",
+  description:
+    "A community-driven platform for asking and answering questions about software development. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, game development, algorithms, data structures, and more.",
+};
 async function Tags({ searchParams }: SearchParamsProps) {
   const { tags,isNext } = await getAllTags({
     searchQuery: searchParams.q,

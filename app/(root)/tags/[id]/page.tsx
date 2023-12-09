@@ -1,18 +1,30 @@
-import QuestionsCard from '@/components/cards/QuestionsCard';
-import NoResult from '@/components/shared/NoResult';
-import Pagination from '@/components/shared/Pagination';
-import LocalSearchbar from '@/components/shared/search/LocalSearchbar';
-import { getQuestionTag } from '@/lib/actions/tag.action'
-import { URLProps } from '@/types';
+import QuestionsCard from "@/components/cards/QuestionsCard";
+import NoResult from "@/components/shared/NoResult";
+import Pagination from "@/components/shared/Pagination";
+import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
+import { getQuestionTag, getTagById } from "@/lib/actions/tag.action";
+import { URLProps } from "@/types";
+import { Metadata } from "next";
 
-async function SingleTag({params, searchParams}:URLProps) {
-  const { tagTitle, questions , isNext} = await getQuestionTag({
+export async function generateMetadata({
+  params,
+}: Omit<URLProps, "searchParams">): Promise<Metadata> {
+  const id = params.id;
+  const tag = await getTagById({ tagId: id });
+
+  return {
+    title: `Posts by tag '${tag.name}' — Dev connected`,
+    description: tag.description || `Questions tagged with ${tag.name}`,
+  };
+}
+async function SingleTag({ params, searchParams }: URLProps) {
+  const { tagTitle, questions, isNext } = await getQuestionTag({
     tagId: params.id,
 
     searchQuery: searchParams.q,
     page: searchParams.page ? +searchParams.page : 1,
   });
-    
+
   return (
     <>
       <h1 className="h1-bold text-dark100_light900 uppercase">{tagTitle}</h1>
@@ -63,4 +75,4 @@ async function SingleTag({params, searchParams}:URLProps) {
   );
 }
 
-export default SingleTag
+export default SingleTag;

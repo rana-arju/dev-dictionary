@@ -83,6 +83,7 @@ function Answer({ question, authorId, questionId }: Props) {
       console.log(error);
     } finally {
       setIsSubmittingAi(false);
+      
     }
   };
   return (

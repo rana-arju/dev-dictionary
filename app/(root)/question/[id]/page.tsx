@@ -12,8 +12,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
+import type { Metadata } from "next";
+import { URLProps } from "@/types";
 
-async function SingleQuestion({ params,searchParams }: any) {
+export async function generateMetadata({
+  params,
+}: Omit<URLProps, "searchParams">): Promise<Metadata> {
+  const { question } = await getQuestionById({ questionId: params.id });
+
+  return {
+    title: `"${question.title}" — DevConnected`,
+  };
+}
+async function SingleQuestion({ params, searchParams }: any) {
   const { question } = await getQuestionById({ questionId: params.id });
 
   const { userId: clerkId } = auth();
@@ -23,7 +34,7 @@ async function SingleQuestion({ params,searchParams }: any) {
   } else {
     return redirect("/sign-in");
   }
-  
+
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -99,7 +110,7 @@ async function SingleQuestion({ params,searchParams }: any) {
         questionId={question._id}
         totalAnswers={question.answers.length}
         page={searchParams?.page}
-        filter = {searchParams?.filter}
+        filter={searchParams?.filter}
       />
       <Answer
         question={question.content}

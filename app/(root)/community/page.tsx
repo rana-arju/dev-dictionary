@@ -7,7 +7,12 @@ import { getAllUser } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 import React from "react";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "All Users | Dev Connected",
+  description:
+    "A community-driven platform for asking and answering questions about software development. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, game development, algorithms, data structures, and more.",
+};
 async function Community({ searchParams }: SearchParamsProps) {
   const { users, isNext } = await getAllUser({
     searchQuery: searchParams.q,

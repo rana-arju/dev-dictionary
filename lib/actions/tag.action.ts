@@ -5,29 +5,59 @@ import { connectToDatabase } from "../mongoose";
 import {
   GetAllTagsParams,
   GetQuestionByTagIdParams,
+  GetTagByIdParams,
   GetTopInteractedTagsParams,
 } from "./shared.types";
 import Tag, { ITag } from "@/database/tag.model";
 import { FilterQuery } from "mongoose";
 import Question from "@/database/question.model";
 
-export async function getTopintractedTag(params: GetTopInteractedTagsParams) {
+export async function getTopInteractedTags(params: GetTopInteractedTagsParams) {
   try {
     connectToDatabase();
-    const { userId } = params;
+
+    const { userId, limit = 3 } = params;
+
     const user = await User.findById(userId);
-    if (!user) throw new Error("User not found!");
-    return [
-      { _id: "asda", name: "React js" },
-      { _id: "asdsda", name: "Next js" },
-      { _id: "asdsdaad", name: "MongoDB" },
-    ];
+
+    if (!user) throw new Error("User not found");
+
+    // find interactions for the user and groups by tags
+    const interactions = await Question.aggregate([
+      { $match: { author: userId } },
+      { $unwind: "$tags" },
+      { $group: { _id: "$tags", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $limit: limit },
+    ]);
+
+    // find the tags from the interactions
+    const tags = await Tag.find({
+      _id: { $in: interactions.map((i) => i._id) },
+    });
+
+    return tags;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
+export async function getTagById(params: GetTagByIdParams) {
+  try {
+    connectToDatabase();
 
+    const { tagId } = params;
+
+    const tag = await Tag.findOne({
+      _id: tagId,
+    });
+
+    return tag;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
 export async function getAllTags(params: GetAllTagsParams) {
   try {
     connectToDatabase();

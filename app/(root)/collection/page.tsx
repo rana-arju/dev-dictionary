@@ -7,6 +7,12 @@ import { auth } from "@clerk/nextjs";
 import { getSavedQuestion } from "@/lib/actions/user.action";
 import { SearchParamsProps } from "@/types";
 import Pagination from "@/components/shared/Pagination";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "Saved Questions | Dev Connected",
+  description:
+    "A community-driven platform for asking and answering questions about software development. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, game development, algorithms, data structures, and more.",
+};
 export default async function Collection({ searchParams }: SearchParamsProps) {
   const { userId: clerkId } = auth();
   if (!clerkId) return null;

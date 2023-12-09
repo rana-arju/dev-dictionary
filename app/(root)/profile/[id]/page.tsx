@@ -4,14 +4,23 @@ import QuestionTab from "@/components/shared/QuestionTab";
 import Stats from "@/components/shared/Stats";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getUserInfo } from "@/lib/actions/user.action";
+import { getUserById, getUserInfo } from "@/lib/actions/user.action";
 import { getJoinedDate } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { SignedIn, auth } from "@clerk/nextjs";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+export async function generateMetadata({
+  params,
+}: Omit<URLProps, "searchParams">): Promise<Metadata> {
+  const user = await getUserById({ userId: params.id });
 
+  return {
+    title: `${user.name}'s Profile — DevConnected`,
+  };
+}
 async function Profile({ params, searchParams }: URLProps) {
   const { user, totalAnswers, totalQuestions, badgetCount, reputation } =
     await getUserInfo({
@@ -84,7 +93,10 @@ async function Profile({ params, searchParams }: URLProps) {
               Answers
             </TabsTrigger>
           </TabsList>
-          <TabsContent value="top-posts">
+          <TabsContent
+            value="top-posts"
+            className="mt-5 flex w-full flex-col gap-6"
+          >
             <QuestionTab
               searchParams={searchParams}
               userId={user._id}

@@ -36,7 +36,7 @@ async function AllAnswers({
       <div>
         {answers.map((answer) => (
           <article key={answer._id} className="light-border border-b py-10">
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between"> */}
               <div className="mb-8 flex flex-col-reverse justify-between gap-5 sm:flex-row sm:items-center sm:gap-2">
                 <Link
                   href={`/profile/${answer.author.clerkId}`}
@@ -72,7 +72,7 @@ async function AllAnswers({
                   />
                 </div>
               </div>
-            </div>
+            {/* </div> */}
             <ParseHtml data={answer.content} />
           </article>
         ))}

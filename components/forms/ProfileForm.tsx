@@ -78,8 +78,8 @@ const ProfileForm = ({ user, clerkId }: Props) => {
             name="name"
             render={({ field }) => (
               <FormItem className="space-y-3.5">
-                <FormLabel>
-                  Name <span className="text-primary-500">*</span>{" "}
+                <FormLabel className="paragraph-semibold text-dark400_light800">
+                  Name <span className="text-primary-500">*</span>
                 </FormLabel>
                 <FormControl>
                   <Input
@@ -98,7 +98,7 @@ const ProfileForm = ({ user, clerkId }: Props) => {
             name="username"
             render={({ field }) => (
               <FormItem className="space-y-3.5">
-                <FormLabel>
+                <FormLabel className="paragraph-semibold text-dark400_light800">
                   Username <span className="text-primary-500">*</span>{" "}
                 </FormLabel>
                 <FormControl>

@@ -1,4 +1,4 @@
-import { getTopintractedTag } from "@/lib/actions/tag.action";
+import { getTopInteractedTags } from "@/lib/actions/tag.action";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
@@ -18,7 +18,8 @@ interface Props {
   };
 }
 async function UserCard({ user }: Props) {
-  const tags = await getTopintractedTag({ userId: user._id });
+  const tags = await getTopInteractedTags({ userId: user._id });
+  console.log(tags);
 
   return (
     <Link
@@ -42,11 +43,15 @@ async function UserCard({ user }: Props) {
           </p>
         </div>
         <div className="mt-5">
-          {tags.length > 0 ? <div className="flex items-center gap-2">
-            {
-                tags.map(tag => <RenderTag key={tag._id} _id = {tag._id} name={tag.name} />)
-            }
-          </div> : <Badge>No tags yet!</Badge>}
+          {tags.length > 0 ? (
+            <div className="flex items-center gap-2">
+              {tags.map((tag) => (
+                <RenderTag key={tag._id} _id={tag._id} name={tag.name} />
+              ))}
+            </div>
+          ) : (
+            <Badge>No tags yet!</Badge>
+          )}
         </div>
       </article>
     </Link>
