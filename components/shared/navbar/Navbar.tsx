@@ -13,7 +13,7 @@ function Navbar() {
           src={"/assets/images/site-logo.png"}
           width={30}
           height={30}
-          alt="dev flow"
+          alt="dev Dictionary"
         />
         <p className="h2-bold font-spaceGrotesk text-dark-100 dark:text-light-900 max-sm:hidden">
           Dev <span className="text-primary-500">Dictionary</span>

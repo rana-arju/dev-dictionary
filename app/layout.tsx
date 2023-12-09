@@ -19,9 +19,9 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-spaceGrotesk",
 });
 export const metadata: Metadata = {
-  title: "Dev Flow",
+  title: "Dev Dictionary",
   description:
-    "Dev Flow is a question-and-answer website for programmers. It's the flagship site of the Stack Exchange Network.",
+    "Dev Dictionary is a question-and-answer website for programmers. It's the flagship site of the Stack Exchange Network.",
   icons: {
     icon: "/assets/images/site-logo.png",
   },
