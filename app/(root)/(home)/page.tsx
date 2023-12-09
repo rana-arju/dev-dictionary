@@ -15,7 +15,9 @@ export const metadata: Metadata = {
   description:
     "A community-driven platform for asking and answering questions about software development. Get help, share knowledge, and collaborate with developers from around the world. Explore topics in web development, mobile app development, game development, algorithms, data structures, and more.",
 };
-export default async function Home({searchParams}:SearchParamsProps) {
+export default async function Home({ searchParams }: SearchParamsProps) {
+
+
   const { questions, isNext } = await getQuestions({
     searchQuery: searchParams.q,
     filter: searchParams.filter,

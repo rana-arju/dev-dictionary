@@ -4,18 +4,18 @@ const Loading = () => {
   return (
     <section>
       <div className="flex flex-col items-start gap-4 lg:flex-row">
-        <Skeleton className="h-36 w-36 rounded-full" />
+        <Skeleton className="h-36 w-36 rounded-full bg-blue-200" />
 
         <div className="mt-3">
-          <Skeleton className="h-7 w-28" />
-          <Skeleton className="mt-3 h-7 w-20" />
+          <Skeleton className="h-7 w-28 bg-blue-200" />
+          <Skeleton className="mt-3 h-7 w-20 bg-blue-200" />
 
           <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-            <Skeleton className="h-9 w-36" />
-            <Skeleton className="h-9 w-36" />
+            <Skeleton className="h-9 w-36 bg-blue-200" />
+            <Skeleton className="h-9 w-36 bg-blue-200" />
           </div>
 
-          <Skeleton className="mt-8 h-7 w-9/12" />
+          <Skeleton className="mt-8 h-7 w-9/12 bg-blue-200" />
         </div>
       </div>
 

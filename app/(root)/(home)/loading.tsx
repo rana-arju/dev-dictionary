@@ -15,19 +15,18 @@ const Loading = () => {
           </Button>
         </Link>
       </div>
-
       <div className="mb-12 mt-11 flex flex-wrap items-center justify-between gap-5">
-        <Skeleton className="h-14 flex-1" />
+        <Skeleton className="h-14 flex-1  bg-blue-200" />
         <div className="hidden max-md:block">
-          <Skeleton className="h-14 w-28" />
+          <Skeleton className="h-14 w-28 bg-blue-200" />
         </div>
       </div>
 
       <div className="my-10 hidden flex-wrap gap-3 md:flex">
-        <Skeleton className="h-9 w-28" />
-        <Skeleton className="h-9 w-28" />
-        <Skeleton className="h-9 w-28" />
-        <Skeleton className="h-9 w-28" />
+        <Skeleton className="h-9 w-28 bg-blue-200" />
+        <Skeleton className="h-9 w-28 bg-blue-200" />
+        <Skeleton className="h-9 w-28 bg-blue-200" />
+        <Skeleton className="h-9 w-28 bg-blue-200" />
       </div>
 
       <div className="flex flex-col gap-6">
@@ -35,6 +34,7 @@ const Loading = () => {
           <Skeleton key={i} className="h-48 w-full rounded-xl" />
         ))}
       </div>
+  
     </section>
   );
 };
