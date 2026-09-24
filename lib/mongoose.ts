@@ -12,8 +12,6 @@ export const connectToDatabase = async () => {
   try {
     const options = {
       dbName: "devFlow",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     };
     await mongoose.connect(process.env.MONGODB_URL, options);
     isConnected = true;
